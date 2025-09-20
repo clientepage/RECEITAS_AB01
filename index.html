@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmácia Natural em Casa | Remédios Naturais Para Toda Família</title>
+    <meta name="description" content="Descubra como tratar naturalmente diabetes, insônia, ansiedade e mais com ingredientes da sua cozinha. Guia completo de receitas naturais." />
+    
+    <!-- Performance optimizations -->
+    <link rel="dns-prefetch" href="//images.pexels.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://images.pexels.com" crossorigin>
+    
+    <!-- Inline critical CSS and fonts -->
+    <style>
+      /* Critical CSS inlined */
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+      *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+      body{font-family:'Poppins',system-ui,-apple-system,sans-serif;line-height:1.6;color:#1f2937;text-rendering:optimizeSpeed;font-size:16px}
+      .container{max-width:1200px;margin:0 auto;padding:0 1rem;contain:layout}
+      
+      /* Optimize images */
+      img{max-width:100%;height:auto;display:block}
+      
+      /* Above-the-fold styles */
+      header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);contain:layout}
+      .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(to bottom,#f2f7f2,#ffffff);contain:layout}
+      .btn-primary{background:#538c57;color:white;padding:1.2rem 2.5rem;border-radius:9999px;text-decoration:none;display:inline-block;font-weight:600;transition:background-color 0.2s,transform 0.2s;will-change:background-color,transform;font-size:18px}
+      .btn-primary:hover{background:#3d7141;transform:translate3d(0,-1px,0)}
+      img{content-visibility:auto;contain-intrinsic-size:200px}
+      .lazy-section{content-visibility:auto;contain-intrinsic-size:400px}
+      
+      /* Carousel optimizations */
+      .carousel-container{will-change:transform;transform:translateZ(0)}
+      .carousel-slide{backface-visibility:hidden;transform:translateZ(0)}
+      
+      /* Mobile optimizations */
+      @media (max-width: 768px) {
+        body{font-size:17px}
+        .btn-primary{padding:1rem 2rem;font-size:17px}
+        h1{font-size:1.75rem !important;line-height:1.3}
+        h2{font-size:1.5rem !important;line-height:1.3}
+        h3{font-size:1.25rem !important;line-height:1.3}
+        p{font-size:16px;line-height:1.5}
+      }
+      @media (max-width: 480px) {
+        body{font-size:16px}
+        .btn-primary{padding:0.9rem 1.8rem;font-size:16px}
+        h1{font-size:1.6rem !important}
+        h2{font-size:1.4rem !important}
+        h3{font-size:1.2rem !important}
+        p{font-size:15px}
+      }
+      
+      /* Reduce motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+      }
+    </style>
+    
+    <script>
+      // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
+      const link = 'https://gamificado-receitas.vercel.app/';
+
+      function setBackRedirect(url) {
+        let urlBackRedirect = url;
+        urlBackRedirect = urlBackRedirect =
+          urlBackRedirect.trim() +
+          (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
+          document.location.search.replace('?', '').toString();
+
+        history.pushState({}, '', location.href);
+        history.pushState({}, '', location.href);
+        history.pushState({}, '', location.href);
+
+        window.addEventListener('popstate', () => {
+          console.log('onpopstate', urlBackRedirect);
+          setTimeout(() => {
+            location.href = urlBackRedirect;
+          }, 1);
+        });
+      }
+
+      setBackRedirect(link);
+    </script>
+    
+    <!-- UTMify Pixel Script - Permissões Totais -->
+    <script>
+      window.pixelId = "68be1608013346c26842c789";
+      window.pixelConfig = {
+        trackPageView: true,
+        trackClicks: true,
+        trackScrollDepth: true,
+        trackTimeOnPage: true,
+        trackFormSubmissions: true,
+        trackButtonClicks: true,
+        trackVideoViews: true,
+        trackDownloads: true,
+        trackOutboundLinks: true,
+        trackCustomEvents: true,
+        trackMouseMovement: true,
+        trackKeyboardEvents: true,
+        trackTouchEvents: true,
+        trackWindowEvents: true,
+        trackNetworkEvents: true,
+        trackPerformanceMetrics: true,
+        trackUserAgent: true,
+        trackScreenResolution: true,
+        trackTimezone: true,
+        trackLanguage: true,
+        trackReferrer: true,
+        trackSessionData: true,
+        trackLocalStorage: true,
+        trackCookies: true,
+        captureAllEvents: true
+      };
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+      document.head.appendChild(a);
+    </script>
+    
+    <!-- UTMify UTMs Script - Permissões Totais -->
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-xcod-sck
+      data-utmify-prevent-subids
+      async
+      defer
+    ></script>
+    
+    <!-- Load analytics with intersection observer -->
+    <script>
+      // Enhanced tracking function with full UTMify integration
+      window.trackEvent = function(eventName, eventData) {
+        if (window.utmify && window.utmify.pixel) {
+          window.utmify.pixel.track(eventName, eventData);
+        }
+      };
+      
+      // Enable all tracking capabilities
+      window.addEventListener('load', function() {
+        // Track page load
+        if (window.trackEvent) {
+          window.trackEvent('PageLoad', { 
+            url: window.location.href,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            screenResolution: screen.width + 'x' + screen.height,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            language: navigator.language
+          });
+        }
+      });
+    </script>
+    
+    <!-- Enhanced Analytics Setup -->
+    <script>
+      // Complete analytics setup with full tracking
+      window.addEventListener('DOMContentLoaded', function() {
+        // Track page view
+        if (window.trackEvent) {
+          window.trackEvent('PageView', { 
+            url: window.location.href,
+            referrer: document.referrer,
+            timestamp: new Date().toISOString()
+          });
+        }
+      });
+      
+      // Track all clicks with detailed information
+      document.addEventListener('click', function(e) {
+        const target = e.target.closest('a, button, [data-track]');
+        if (target && window.trackEvent) {
+          window.trackEvent('Click', { 
+            text: target.textContent.trim(),
+            href: target.href || '',
+            className: target.className,
+            id: target.id,
+            tagName: target.tagName,
+            x: e.clientX,
+            y: e.clientY,
+            timestamp: new Date().toISOString()
+          });
+        }
+      }, { passive: true });
+      
+      // Track scroll depth
+      let maxScrollDepth = 0;
+      window.addEventListener('scroll', function() {
+        const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollDepth > maxScrollDepth) {
+          maxScrollDepth = scrollDepth;
+          if (window.trackEvent && scrollDepth % 25 === 0) {
+            window.trackEvent('ScrollDepth', { 
+              depth: scrollDepth,
+              timestamp: new Date().toISOString()
+            });
+          }
+        }
+      }, { passive: true });
+      
+      // Track time on page
+      let startTime = Date.now();
+      window.addEventListener('beforeunload', function() {
+        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+        if (window.trackEvent) {
+          window.trackEvent('TimeOnPage', { 
+            seconds: timeOnPage,
+            timestamp: new Date().toISOString()
+          });
+        }
+      });
+      
+      // Preload critical images
+      window.addEventListener('load', function() {
+        const criticalImages = [
+          '/AnyConv.com__depoimento01-1.webp',
+          '/AnyConv.com__depoimento06.webp'
+        ];
+        
+        criticalImages.forEach(function(src) {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = src;
+          document.head.appendChild(link);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -12,12 +12,16 @@ const Pricing: React.FC = () => {
     setShowPaymentModal(true);
     
     // Rastrear abertura do modal de pagamento
-    if (window.utmify && window.utmify.pixel) {
-      window.trackEvent('InitiateCheckout', {
-        packageType: option,
-        value: option === 'standard' ? 9.99 : 27.00,
-        currency: 'BRL'
-      });
+    try {
+      if (window.utmify && window.utmify.pixel) {
+        window.trackEvent('InitiateCheckout', {
+          packageType: option,
+          value: option === 'standard' ? 9.99 : 27.00,
+          currency: 'BRL'
+        });
+      }
+    } catch (error) {
+      console.error('Error tracking checkout:', error);
     }
     
     // Scroll to modal with animation
@@ -291,13 +295,17 @@ const Pricing: React.FC = () => {
                     closeModal();
                     
                     // Rastrear clique no pagamento com cartão
-                    if (window.utmify && window.utmify.pixel) {
-                      window.trackEvent('PurchaseAttempt', {
-                        packageType: selectedPaymentOption,
-                        paymentMethod: 'credit_card',
-                        value: selectedPaymentOption === 'standard' ? 9.99 : 27.00,
-                        currency: 'BRL'
-                      });
+                    try {
+                      if (window.utmify && window.utmify.pixel) {
+                        window.trackEvent('PurchaseAttempt', {
+                          packageType: selectedPaymentOption,
+                          paymentMethod: 'credit_card',
+                          value: selectedPaymentOption === 'standard' ? 9.99 : 27.00,
+                          currency: 'BRL'
+                        });
+                      }
+                    } catch (error) {
+                      console.error('Error tracking purchase attempt:', error);
                     }
                     
                     // Open in new tab
@@ -315,13 +323,17 @@ const Pricing: React.FC = () => {
                     closeModal();
                     
                     // Rastrear clique no pagamento com PIX
-                    if (window.utmify && window.utmify.pixel) {
-                      window.trackEvent('PurchaseAttempt', {
-                        packageType: selectedPaymentOption,
-                        paymentMethod: 'pix',
-                        value: selectedPaymentOption === 'standard' ? 9.99 : 27.00,
-                        currency: 'BRL'
-                      });
+                    try {
+                      if (window.utmify && window.utmify.pixel) {
+                        window.trackEvent('PurchaseAttempt', {
+                          packageType: selectedPaymentOption,
+                          paymentMethod: 'pix',
+                          value: selectedPaymentOption === 'standard' ? 9.99 : 27.00,
+                          currency: 'BRL'
+                        });
+                      }
+                    } catch (error) {
+                      console.error('Error tracking purchase attempt:', error);
                     }
                     
                     // Open in new tab

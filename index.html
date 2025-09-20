@@ -64,7 +64,7 @@
     
     <script>
       // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
-      const link = 'https://gamificado-receitas.vercel.app/';
+      const exitLink = 'https://gamificado-receitas.vercel.app/';
       
       // Normalizar URL para evitar perda do pixel
       function normalizeUrl() {
@@ -95,25 +95,28 @@
       window.normalizedUrl = normalizeUrl();
 
       function setBackRedirect(url) {
-        let urlBackRedirect = url;
-        urlBackRedirect = urlBackRedirect =
-          urlBackRedirect.trim() +
-          (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
-          document.location.search.replace('?', '').toString();
+        try {
+          let urlBackRedirect = url;
+          urlBackRedirect = urlBackRedirect.trim() +
+            (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
+            document.location.search.replace('?', '').toString();
 
-        history.pushState({}, '', location.href);
-        history.pushState({}, '', location.href);
-        history.pushState({}, '', location.href);
+          history.pushState({}, '', location.href);
+          history.pushState({}, '', location.href);
+          history.pushState({}, '', location.href);
 
-        window.addEventListener('popstate', () => {
-          console.log('onpopstate', urlBackRedirect);
-          setTimeout(() => {
-            location.href = urlBackRedirect;
-          }, 1);
-        });
+          window.addEventListener('popstate', () => {
+            console.log('onpopstate', urlBackRedirect);
+            setTimeout(() => {
+              location.href = urlBackRedirect;
+            }, 1);
+          });
+        } catch (error) {
+          console.error('Error setting back redirect:', error);
+        }
       }
 
-      setBackRedirect(link);
+      setBackRedirect(exitLink);
     </script>
     
     <!-- UTMify Pixel Script - Permissões Totais -->
@@ -166,32 +169,40 @@
     <script>
       // Enhanced tracking function with full UTMify integration
       window.trackEvent = function(eventName, eventData) {
-        if (window.utmify && window.utmify.pixel) {
-          window.utmify.pixel.track(eventName, {
-            ...eventData,
-            url: window.normalizedUrl || window.location.href,
-            clean_url: true
-          });
+        try {
+          if (window.utmify && window.utmify.pixel) {
+            window.utmify.pixel.track(eventName, {
+              ...eventData,
+              url: window.normalizedUrl || window.location.href,
+              clean_url: true
+            });
+          }
+        } catch (error) {
+          console.error('Error tracking event:', error);
         }
       };
       
       // Enable all tracking capabilities
       window.addEventListener('load', function() {
-        // Garantir que a URL está normalizada antes do tracking
-        if (!window.normalizedUrl) {
-          window.normalizedUrl = normalizeUrl();
-        }
-        
-        // Track page load
-        if (window.trackEvent) {
-          window.trackEvent('PageLoad', { 
-            url: window.normalizedUrl,
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent,
-            screenResolution: screen.width + 'x' + screen.height,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            language: navigator.language
-          });
+        try {
+          // Garantir que a URL está normalizada antes do tracking
+          if (!window.normalizedUrl) {
+            window.normalizedUrl = normalizeUrl();
+          }
+          
+          // Track page load
+          if (window.trackEvent) {
+            window.trackEvent('PageLoad', { 
+              url: window.normalizedUrl,
+              timestamp: new Date().toISOString(),
+              userAgent: navigator.userAgent,
+              screenResolution: screen.width + 'x' + screen.height,
+              timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+              language: navigator.language
+            });
+          }
+        } catch (error) {
+          console.error('Error in load event:', error);
         }
       });
     </script>
@@ -200,78 +211,99 @@
     <script>
       // Complete analytics setup with full tracking
       window.addEventListener('DOMContentLoaded', function() {
-        // Garantir URL normalizada
-        if (!window.normalizedUrl) {
-          window.normalizedUrl = normalizeUrl();
+        try {
+          // Garantir URL normalizada
+          if (!window.normalizedUrl) {
+            window.normalizedUrl = normalizeUrl();
+          }
+          
+          // Track page view
+          if (window.trackEvent) {
+            window.trackEvent('PageView', { 
+              url: window.normalizedUrl,
+              referrer: document.referrer,
+              timestamp: new Date().toISOString()
+            });
+          }
+        } catch (error) {
+          console.error('Error in DOMContentLoaded:', error);
         }
-        
-        // Track page view
-        if (window.trackEvent) {
-          window.trackEvent('PageView', { 
-            url: window.normalizedUrl,
-            referrer: document.referrer,
-            timestamp: new Date().toISOString()
-          });
         }
       });
       
       // Track all clicks with detailed information
       document.addEventListener('click', function(e) {
-        const target = e.target.closest('a, button, [data-track]');
-        if (target && window.trackEvent) {
-          window.trackEvent('Click', { 
-            text: target.textContent.trim(),
-            href: target.href || '',
-            className: target.className,
-            id: target.id,
-            tagName: target.tagName,
-            x: e.clientX,
-            y: e.clientY,
-            timestamp: new Date().toISOString()
-          });
+        try {
+          const target = e.target.closest('a, button, [data-track]');
+          if (target && window.trackEvent) {
+            window.trackEvent('Click', { 
+              text: target.textContent.trim(),
+              href: target.href || '',
+              className: target.className,
+              id: target.id,
+              tagName: target.tagName,
+              x: e.clientX,
+              y: e.clientY,
+              timestamp: new Date().toISOString()
+            });
+          }
+        } catch (error) {
+          console.error('Error tracking click:', error);
         }
       }, { passive: true });
       
       // Track scroll depth
       let maxScrollDepth = 0;
       window.addEventListener('scroll', function() {
-        const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-        if (scrollDepth > maxScrollDepth) {
-          maxScrollDepth = scrollDepth;
-          if (window.trackEvent && scrollDepth % 25 === 0) {
-            window.trackEvent('ScrollDepth', { 
-              depth: scrollDepth,
-              timestamp: new Date().toISOString()
-            });
+        try {
+          const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+          if (scrollDepth > maxScrollDepth) {
+            maxScrollDepth = scrollDepth;
+            if (window.trackEvent && scrollDepth % 25 === 0) {
+              window.trackEvent('ScrollDepth', { 
+                depth: scrollDepth,
+                timestamp: new Date().toISOString()
+              });
+            }
           }
+        } catch (error) {
+          console.error('Error tracking scroll:', error);
         }
       }, { passive: true });
       
       // Track time on page
       let startTime = Date.now();
       window.addEventListener('beforeunload', function() {
-        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
-        if (window.trackEvent) {
-          window.trackEvent('TimeOnPage', { 
-            seconds: timeOnPage,
-            timestamp: new Date().toISOString()
-          });
+        try {
+          const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+          if (window.trackEvent) {
+            window.trackEvent('TimeOnPage', { 
+              seconds: timeOnPage,
+              timestamp: new Date().toISOString()
+            });
+          }
+        } catch (error) {
+          console.error('Error tracking time on page:', error);
         }
       });
       
       // Preload critical images
       window.addEventListener('load', function() {
-        const criticalImages = [
-          '/AnyConv.com__depoimento01-1.webp',
-          '/AnyConv.com__depoimento06.webp'
-        ];
-        
-        criticalImages.forEach(function(src) {
-          const link = document.createElement('link');
-          link.rel = 'prefetch';
-          link.href = src;
-          document.head.appendChild(link);
-        });
+        try {
+          const criticalImages = [
+            '/AnyConv.com__depoimento01-1.webp',
+            '/AnyConv.com__depoimento06.webp'
+          ];
+          
+          criticalImages.forEach(function(src) {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = src;
+            document.head.appendChild(link);
+          });
+        } catch (error) {
+          console.error('Error preloading images:', error);
+        }
       });
     </script>
   </head>

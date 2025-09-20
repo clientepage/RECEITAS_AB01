@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import { ErrorBoundary } from 'react-error-boundary';
 
 // Lazy load non-critical components with better chunking
 const KnowledgeSection = lazy(() => import('./components/KnowledgeSection'));
@@ -13,6 +12,34 @@ const Testimonials = lazy(() => import('./components/Testimonials'));
 const Pricing = lazy(() => import('./components/Pricing'));
 const FAQ = lazy(() => import('./components/FAQ'));
 const Footer = lazy(() => import('./components/Footer'));
+
+// Simple Error Boundary component
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode; fallback?: React.ComponentType<{ error: Error; resetErrorBoundary: () => void }> },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      const FallbackComponent = this.props.fallback || ErrorFallback;
+      return <FallbackComponent error={this.state.error!} resetErrorBoundary={() => this.setState({ hasError: false, error: null })} />;
+    }
+
+    return this.props.children;
+  }
+}
 
 // Optimized loading component
 const LoadingSpinner = () => (
@@ -46,7 +73,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error, resetError
 
 function App() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
+    <ErrorBoundary fallback={ErrorFallback}>
       <div className="font-sans text-natural-900 optimize-rendering">
         <Header />
         <main className="pt-16">

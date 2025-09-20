@@ -8,8 +8,12 @@ const Hero: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Set loaded state immediately to show content
-    setIsLoaded(true);
+    // Set loaded state with small delay to ensure proper rendering
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   const handleScrollToOffers = (e: React.MouseEvent<HTMLAnchorElement>) => {

@@ -65,6 +65,34 @@
     <script>
       // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
       const link = 'https://gamificado-receitas.vercel.app/';
+      
+      // Normalizar URL para evitar perda do pixel
+      function normalizeUrl() {
+        const currentUrl = window.location.href;
+        const baseUrl = window.location.origin;
+        
+        // Se a URL tem parâmetros estranhos da Vercel, limpar
+        if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+          // Preservar apenas UTMs válidos
+          const urlParams = new URLSearchParams(window.location.search);
+          const validParams = new URLSearchParams();
+          
+          // Manter apenas parâmetros de UTM e tracking
+          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].forEach(param => {
+            if (urlParams.has(param)) {
+              validParams.set(param, urlParams.get(param));
+            }
+          });
+          
+          const cleanUrl = baseUrl + (validParams.toString() ? '?' + validParams.toString() : '');
+          window.history.replaceState({}, document.title, cleanUrl);
+        }
+        
+        return window.location.href;
+      }
+      
+      // Executar normalização
+      window.normalizedUrl = normalizeUrl();
 
       function setBackRedirect(url) {
         let urlBackRedirect = url;
@@ -139,16 +167,25 @@
       // Enhanced tracking function with full UTMify integration
       window.trackEvent = function(eventName, eventData) {
         if (window.utmify && window.utmify.pixel) {
-          window.utmify.pixel.track(eventName, eventData);
+          window.utmify.pixel.track(eventName, {
+            ...eventData,
+            url: window.normalizedUrl || window.location.href,
+            clean_url: true
+          });
         }
       };
       
       // Enable all tracking capabilities
       window.addEventListener('load', function() {
+        // Garantir que a URL está normalizada antes do tracking
+        if (!window.normalizedUrl) {
+          window.normalizedUrl = normalizeUrl();
+        }
+        
         // Track page load
         if (window.trackEvent) {
           window.trackEvent('PageLoad', { 
-            url: window.location.href,
+            url: window.normalizedUrl,
             timestamp: new Date().toISOString(),
             userAgent: navigator.userAgent,
             screenResolution: screen.width + 'x' + screen.height,
@@ -163,10 +200,15 @@
     <script>
       // Complete analytics setup with full tracking
       window.addEventListener('DOMContentLoaded', function() {
+        // Garantir URL normalizada
+        if (!window.normalizedUrl) {
+          window.normalizedUrl = normalizeUrl();
+        }
+        
         // Track page view
         if (window.trackEvent) {
           window.trackEvent('PageView', { 
-            url: window.location.href,
+            url: window.normalizedUrl,
             referrer: document.referrer,
             timestamp: new Date().toISOString()
           });

@@ -70,12 +70,13 @@ const Testimonials: React.FC = () => {
           <div className="bg-white rounded-xl p-6 shadow-lg border border-natural-100">
             <div className="flex items-center mb-4">
               <img 
-                src="https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=1"
+                src="https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=48&h=48&dpr=2"
                 alt="Maria Silva"
-                className="w-12 h-12 rounded-full object-cover mr-4"
+                className="w-12 h-12 rounded-full object-cover mr-4 aspect-ratio-1-1"
                 loading="lazy"
                 width="48"
                 height="48"
+                decoding="async"
               />
               <div>
                 <h4 className="font-bold text-natural-800">Maria Silva</h4>
@@ -92,12 +93,13 @@ const Testimonials: React.FC = () => {
           <div className="bg-white rounded-xl p-6 shadow-lg border border-natural-100">
             <div className="flex items-center mb-4">
               <img 
-                src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=1"
+                src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=48&h=48&dpr=2"
                 alt="João Pereira"
-                className="w-12 h-12 rounded-full object-cover mr-4"
+                className="w-12 h-12 rounded-full object-cover mr-4 aspect-ratio-1-1"
                 loading="lazy"
                 width="48"
                 height="48"
+                decoding="async"
               />
               <div>
                 <h4 className="font-bold text-natural-800">João Pereira</h4>
@@ -114,12 +116,13 @@ const Testimonials: React.FC = () => {
           <div className="bg-white rounded-xl p-6 shadow-lg border border-natural-100">
             <div className="flex items-center mb-4">
               <img 
-                src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=1"
+                src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=48&h=48&dpr=2"
                 alt="Ana Costa"
-                className="w-12 h-12 rounded-full object-cover mr-4"
+                className="w-12 h-12 rounded-full object-cover mr-4 aspect-ratio-1-1"
                 loading="lazy"
                 width="48"
                 height="48"
+                decoding="async"
               />
               <div>
                 <h4 className="font-bold text-natural-800">Ana Costa</h4>
@@ -136,12 +139,13 @@ const Testimonials: React.FC = () => {
           <div className="bg-white rounded-xl p-6 shadow-lg border border-natural-100">
             <div className="flex items-center mb-4">
               <img 
-                src="https://images.pexels.com/photos/716411/pexels-photo-716411.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=1"
+                src="https://images.pexels.com/photos/716411/pexels-photo-716411.jpeg?auto=compress&cs=tinysrgb&w=48&h=48&dpr=2"
                 alt="Carlos Ferreira"
-                className="w-12 h-12 rounded-full object-cover mr-4"
+                className="w-12 h-12 rounded-full object-cover mr-4 aspect-ratio-1-1"
                 loading="lazy"
                 width="48"
                 height="48"
+                decoding="async"
               />
               <div>
                 <h4 className="font-bold text-natural-800">Carlos Ferreira</h4>
@@ -158,12 +162,13 @@ const Testimonials: React.FC = () => {
           <div className="bg-white rounded-xl p-6 shadow-lg border border-natural-100">
             <div className="flex items-center mb-4">
               <img 
-                src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=1"
+                src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=48&h=48&dpr=2"
                 alt="Lucia Santos"
-                className="w-12 h-12 rounded-full object-cover mr-4"
+                className="w-12 h-12 rounded-full object-cover mr-4 aspect-ratio-1-1"
                 loading="lazy"
                 width="48"
                 height="48"
+                decoding="async"
               />
               <div>
                 <h4 className="font-bold text-natural-800">Lucia Santos</h4>
@@ -189,7 +194,7 @@ const Testimonials: React.FC = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="relative h-96 md:h-80">
+            <div className="relative h-96 md:h-80 aspect-ratio-16-9">
               {testimonialImages.map((testimonial, index) => (
                 <div
                   key={index}
@@ -204,6 +209,7 @@ const Testimonials: React.FC = () => {
                     loading="lazy"
                     width="600"
                     height="400"
+                    decoding="async"
                   />
                 </div>
               ))}
@@ -212,7 +218,7 @@ const Testimonials: React.FC = () => {
             {/* Navigation Buttons */}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-natural-800 rounded-full p-2 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-natural-500"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-natural-800 rounded-full p-2 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-natural-500 touch-optimized min-w-[44px] min-h-[44px]"
               aria-label="Depoimento anterior"
             >
               <ChevronLeft size={24} />
@@ -220,7 +226,7 @@ const Testimonials: React.FC = () => {
 
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-natural-800 rounded-full p-2 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-natural-500"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-natural-800 rounded-full p-2 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-natural-500 touch-optimized min-w-[44px] min-h-[44px]"
               aria-label="Próximo depoimento"
             >
               <ChevronRight size={24} />
@@ -232,7 +238,7 @@ const Testimonials: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-natural-500 ${
+                  className={`w-3 h-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-natural-500 touch-optimized min-w-[44px] min-h-[44px] ${
                     index === currentSlide 
                       ? 'bg-natural-600' 
                       : 'bg-white/60 hover:bg-white/80'

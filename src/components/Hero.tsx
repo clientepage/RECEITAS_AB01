@@ -56,7 +56,7 @@ const Hero: React.FC = () => {
 
           {/* Stats Section */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 max-w-3xl mx-auto" role="region" aria-label="Estatísticas">
-            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg border border-natural-100">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg border border-natural-100 touch-optimized">
               <div className="flex items-center justify-center mb-2">
                 <Users className="text-natural-600 mr-2" size={28} aria-hidden="true" />
                 <span className="text-3xl md:text-4xl font-bold text-natural-800">27k+</span>
@@ -64,7 +64,7 @@ const Hero: React.FC = () => {
               <p className="text-natural-700 text-base md:text-lg font-medium">Famílias Transformadas</p>
             </div>
             
-            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg border border-natural-100">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg border border-natural-100 touch-optimized">
               <div className="flex items-center justify-center mb-2">
                 <BookOpen className="text-natural-600 mr-2" size={28} aria-hidden="true" />
                 <span className="text-3xl md:text-4xl font-bold text-natural-800">3000+</span>
@@ -72,7 +72,7 @@ const Hero: React.FC = () => {
               <p className="text-natural-700 text-base md:text-lg font-medium">Receitas Naturais</p>
             </div>
             
-            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg border border-natural-100">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg border border-natural-100 touch-optimized">
               <div className="flex items-center justify-center mb-2">
                 <Award className="text-natural-600 mr-2" size={28} aria-hidden="true" />
                 <span className="text-3xl md:text-4xl font-bold text-natural-800">98%</span>
@@ -91,7 +91,7 @@ const Hero: React.FC = () => {
               <a 
                 href="#oferta" 
                 onClick={handleScrollToOffers}
-                className="btn-mobile inline-block bg-natural-600 hover:bg-natural-700 text-white rounded-full transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-natural-500 focus:ring-offset-2 transform hover:scale-105"
+                className="btn-mobile inline-block bg-natural-600 hover:bg-natural-700 text-white rounded-full transition-all duration-200 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-natural-500 focus:ring-offset-2 transform hover:scale-105 touch-optimized"
                 aria-label="Ir para oferta especial"
               >
                 Quero Transformar Minha Saúde →
@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
               <a 
                 href="#conhecimento" 
                 onClick={handleScrollToNext}
-                className="btn-mobile inline-block border-2 border-natural-600 text-natural-600 hover:bg-natural-600 hover:text-white rounded-full transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-natural-500 focus:ring-offset-2"
+                className="btn-mobile inline-block border-2 border-natural-600 text-natural-600 hover:bg-natural-600 hover:text-white rounded-full transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-natural-500 focus:ring-offset-2 touch-optimized"
                 aria-label="Saber mais sobre o produto"
               >
                 <ArrowDown size={18} className="inline mr-2" aria-hidden="true" />

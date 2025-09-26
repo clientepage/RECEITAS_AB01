@@ -43,13 +43,13 @@ class ErrorBoundary extends React.Component<
 
 // Optimized loading component
 const LoadingSpinner = () => (
-  <div className="flex justify-center items-center py-8" role="status" aria-label="Carregando">
+  <div className="flex justify-center items-center py-8 min-h-[200px]" role="status" aria-label="Carregando">
     <div className="w-8 h-8 border-2 border-natural-200 border-t-natural-600 rounded-full animate-spin"></div>
   </div>
 );
 
 // Intersection Observer for better lazy loading
-const LazySection = ({ children, fallback = <div className="h-20"></div> }: { children: React.ReactNode, fallback?: React.ReactNode }) => (
+const LazySection = ({ children, fallback = <div className="h-20 contain-layout"></div> }: { children: React.ReactNode, fallback?: React.ReactNode }) => (
   <Suspense fallback={fallback}>
     {children}
   </Suspense>

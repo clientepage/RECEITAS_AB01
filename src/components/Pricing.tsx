@@ -152,7 +152,7 @@ const Pricing: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col lg:flex-row justify-between gap-6 lg:gap-8">
-                  <div className="lg:w-1/2 order-2 lg:order-1">
+                  <div className="lg:w-1/2">
                     <h3 className="font-serif text-xl md:text-2xl font-bold text-natural-800 mb-2 leading-tight">
                       {selectedOption === 'standard' ? 'Farmácia Natural em Casa' : 'Farmácia Natural em Casa + Bônus'}
                     </h3>
@@ -201,6 +201,35 @@ const Pricing: React.FC = () => {
                       </div>
                     </div>
 
+                    {selectedOption === 'premium' && (
+                      <div className="lg:hidden bg-natural-50 rounded-lg md:rounded-xl p-4 md:p-6 mb-4 md:mb-6">
+                        <h4 className="font-bold text-lg md:text-xl text-natural-800 mb-3 md:mb-4 flex items-center gap-2">
+                          <Sparkles size={18} className="text-natural-600" />
+                          Bônus Exclusivos
+                        </h4>
+                        
+                        <div className="space-y-3 md:space-y-4">
+                          {bonusItems.map((bonus, index) => (
+                            <div key={index} className="bg-white rounded-lg p-3 md:p-4 shadow-sm border border-natural-100">
+                              <h5 className="font-bold text-natural-800 mb-1 text-sm md:text-base leading-tight">{bonus.title}</h5>
+                              <p className="text-natural-700 text-xs md:text-sm mb-2 leading-relaxed">{bonus.description}</p>
+                              <div className="flex justify-between items-center">
+                                <span className="text-xs md:text-sm text-natural-600">Valor:</span>
+                                <span className="font-bold text-natural-700 text-sm md:text-base">{bonus.value}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-natural-200">
+                          <div className="flex justify-between items-center">
+                            <span className="text-natural-700 text-sm md:text-base">Valor Total dos Bônus:</span>
+                            <span className="font-bold text-natural-800 text-sm md:text-base">R$ 97,00</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     <button 
                       onClick={() => handlePurchaseClick(selectedOption)}
                       className="w-full text-center text-white font-bold px-6 md:px-8 py-4 md:py-5 rounded-full shadow-lg transition-all duration-300 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-base md:text-lg transform hover:scale-105 animate-pulse"
@@ -214,7 +243,7 @@ const Pricing: React.FC = () => {
                   </div>
                   
                   {selectedOption === 'premium' && (
-                    <div className="lg:w-1/2 bg-natural-50 rounded-lg md:rounded-xl p-4 md:p-6 order-1 lg:order-2">
+                    <div className="hidden lg:block lg:w-1/2 bg-natural-50 rounded-lg md:rounded-xl p-4 md:p-6">
                       <h4 className="font-bold text-lg md:text-xl text-natural-800 mb-3 md:mb-4 flex items-center gap-2">
                         <Sparkles size={18} className="text-natural-600" />
                         Bônus Exclusivos

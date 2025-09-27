@@ -205,7 +205,7 @@ const Testimonials: React.FC = () => {
                   <img
                     src={testimonial.src}
                     alt={testimonial.alt}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain mx-auto"
                     loading="lazy"
                     width="600"
                     height="400"

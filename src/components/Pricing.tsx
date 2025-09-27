@@ -152,7 +152,7 @@ const Pricing: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col lg:flex-row justify-between gap-6 lg:gap-8">
-                  <div className="lg:w-1/2">
+                  <div className="lg:w-1/2 order-2 lg:order-1">
                     <h3 className="font-serif text-xl md:text-2xl font-bold text-natural-800 mb-2 leading-tight">
                       {selectedOption === 'standard' ? 'Farmácia Natural em Casa' : 'Farmácia Natural em Casa + Bônus'}
                     </h3>
@@ -214,7 +214,7 @@ const Pricing: React.FC = () => {
                   </div>
                   
                   {selectedOption === 'premium' && (
-                    <div className="lg:w-1/2 bg-natural-50 rounded-lg md:rounded-xl p-4 md:p-6">
+                    <div className="lg:w-1/2 bg-natural-50 rounded-lg md:rounded-xl p-4 md:p-6 order-1 lg:order-2">
                       <h4 className="font-bold text-lg md:text-xl text-natural-800 mb-3 md:mb-4 flex items-center gap-2">
                         <Sparkles size={18} className="text-natural-600" />
                         Bônus Exclusivos

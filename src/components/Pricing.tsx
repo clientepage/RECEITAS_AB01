@@ -1,65 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Sparkles, Clock, CreditCard, X } from 'lucide-react';
-import CountdownTimer from './CountdownTimer';
+import React, { useState } from 'react';
+import { ShieldCheck, Sparkles, Clock, CreditCard } from 'lucide-react';
 
 const Pricing: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<'standard' | 'premium'>('premium');
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [selectedPaymentOption, setSelectedPaymentOption] = useState<'standard' | 'premium' | null>(null);
 
   const handlePurchaseClick = (option: 'standard' | 'premium') => {
-    setSelectedPaymentOption(option);
-    setShowPaymentModal(true);
-    
-    // Rastrear abertura do modal de pagamento
+    const url = option === 'standard'
+      ? 'https://www.ggcheckout.com/checkout/v2/Ni3orCR2x8kWHSw8LJ8O'
+      : 'https://www.ggcheckout.com/checkout/v2/Ni3orCR2x8kWHSw8LJ8O';
+
     try {
       if (window.utmify && window.utmify.pixel) {
-        window.trackEvent('InitiateCheckout', {
+        window.trackEvent('PurchaseAttempt', {
           packageType: option,
           value: option === 'standard' ? 9.99 : 27.00,
           currency: 'BRL'
         });
       }
     } catch (error) {
-      console.error('Error tracking checkout:', error);
+      console.error('Error tracking purchase:', error);
     }
-    
-    // Scroll to modal with animation
-    setTimeout(() => {
-      const modal = document.getElementById('payment-modal');
-      if (modal) {
-        modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 100);
-  };
 
-  const closeModal = () => {
-    setShowPaymentModal(false);
-    setSelectedPaymentOption(null);
-    
-    // Remove any existing event listeners or cleanup
-    document.body.style.overflow = 'auto';
+    window.open(url, '_blank');
   };
-
-  // Close modal when clicking outside
-  const handleModalBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      closeModal();
-    }
-  };
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (showPaymentModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [showPaymentModal]);
 
   const bonusItems = [
     {
@@ -96,11 +59,6 @@ const Pricing: React.FC = () => {
           </div>
 
           <div className="max-w-5xl mx-auto">
-            {/* Countdown Timer */}
-            <div className="mb-8">
-              <CountdownTimer />
-            </div>
-
             {/* Package Selector */}
             <div className="bg-natural-50 rounded-full p-1 flex justify-center mb-6 md:mb-8 max-w-xs md:max-w-md mx-auto">
               <button 
@@ -230,9 +188,9 @@ const Pricing: React.FC = () => {
                       </div>
                     )}
 
-                    <button 
+                    <button
                       onClick={() => handlePurchaseClick(selectedOption)}
-                      className="w-full text-center text-white font-bold px-6 md:px-8 py-4 md:py-5 rounded-full shadow-lg transition-all duration-300 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-base md:text-lg transform hover:scale-105 animate-pulse"
+                      className="w-full text-center text-white font-bold px-6 md:px-8 py-4 md:py-5 rounded-full shadow-lg transition-all duration-300 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-base md:text-lg transform hover:scale-105"
                     >
                       🌿 QUERO MELHORAR MINHA SAÚDE AGORA! 🌿
                     </button>
@@ -282,110 +240,6 @@ const Pricing: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* Payment Modal */}
-      {showPaymentModal && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-          onClick={handleModalBackdropClick}
-        >
-          <div id="payment-modal" className="bg-white rounded-2xl max-w-md w-full mx-4 shadow-2xl animate-fade-in">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-bold text-natural-800">Escolha sua forma de pagamento</h3>
-                <button 
-                  onClick={closeModal}
-                  className="text-natural-600 hover:text-natural-800 transition-colors"
-                >
-                  <X size={24} />
-                </button>
-              </div>
-              
-              <div className="mb-6 p-4 bg-natural-50 rounded-lg">
-                <h4 className="font-bold text-natural-800 mb-2">
-                  {selectedPaymentOption === 'standard' ? 'Farmácia Natural em Casa' : 'Farmácia Natural em Casa + Bônus'}
-                </h4>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-bold text-natural-800">
-                    {selectedPaymentOption === 'standard' ? 'R$ 9,99' : 'R$ 27,00'}
-                  </span>
-                  <span className="bg-earth-100 text-earth-800 font-bold rounded px-2 py-1 text-xs">
-                    {selectedPaymentOption === 'standard' ? '90% OFF' : '86% OFF'}
-                  </span>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <a 
-                  href={selectedPaymentOption === 'standard' ? 'https://remarketing-orcin.vercel.app/' : 'https://pay.kiwify.com.br/jk0QIb9'} 
-                  className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-full text-center transition-colors shadow-lg"
-                  onClick={() => {
-                    // Close modal before redirect
-                    closeModal();
-                    
-                    // Rastrear clique no pagamento com cartão
-                    try {
-                      if (window.utmify && window.utmify.pixel) {
-                        window.trackEvent('PurchaseAttempt', {
-                          packageType: selectedPaymentOption,
-                          paymentMethod: 'credit_card',
-                          value: selectedPaymentOption === 'standard' ? 9.99 : 27.00,
-                          currency: 'BRL'
-                        });
-                      }
-                    } catch (error) {
-                      console.error('Error tracking purchase attempt:', error);
-                    }
-                    
-                    // Open in new tab
-                    window.open(selectedPaymentOption === 'standard' ? 'https://remarketing-orcin.vercel.app/' : 'https://pay.kiwify.com.br/jk0QIb9', '_blank');
-                  }}
-                >
-                  💳 Quero Minhas Receitas - Pagar no Cartão
-                </a>
-                
-                <a 
-                  href={selectedPaymentOption === 'standard' ? 'https://remarketing-orcin.vercel.app/' : 'https://app.pushinpay.com.br/service/pay/9F2F7657-66AE-46EB-B770-BC034D63EBA9'} 
-                  className="block w-full bg-green-600 hover:bg-green-700 text-white font-medium py-4 px-6 rounded-full text-center transition-colors shadow-lg"
-                  onClick={() => {
-                    // Close modal before redirect
-                    closeModal();
-                    
-                    // Rastrear clique no pagamento com PIX
-                    try {
-                      if (window.utmify && window.utmify.pixel) {
-                        window.trackEvent('PurchaseAttempt', {
-                          packageType: selectedPaymentOption,
-                          paymentMethod: 'pix',
-                          value: selectedPaymentOption === 'standard' ? 9.99 : 27.00,
-                          currency: 'BRL'
-                        });
-                      }
-                    } catch (error) {
-                      console.error('Error tracking purchase attempt:', error);
-                    }
-                    
-                    // Open in new tab
-                    window.open(selectedPaymentOption === 'standard' ? 'https://remarketing-orcin.vercel.app/' : 'https://app.pushinpay.com.br/service/pay/9F2F7657-66AE-46EB-B770-BC034D63EBA9', '_blank');
-                  }}
-                >
-                  📱 Quero Minhas Receitas - Pagar no PIX
-                </a>
-              </div>
-              
-              <div className="mt-6 text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <ShieldCheck size={16} className="text-natural-600" />
-                  <span className="text-natural-700 text-sm">Pagamento 100% seguro</span>
-                </div>
-                <p className="text-natural-600 text-xs">
-                  Garantia de 7 dias ou seu dinheiro de volta
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };

@@ -189,12 +189,12 @@ const Testimonials: React.FC = () => {
             Veja Mais Depoimentos Reais
           </h3>
           
-          <div 
+          <div
             className="relative bg-white rounded-xl shadow-lg overflow-hidden"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="relative h-96 md:h-80 aspect-ratio-16-9">
+            <div className="relative h-96 md:h-80 aspect-ratio-16-9 px-4 md:px-0">
               {testimonialImages.map((testimonial, index) => (
                 <div
                   key={index}
@@ -205,7 +205,7 @@ const Testimonials: React.FC = () => {
                   <img
                     src={testimonial.src}
                     alt={testimonial.alt}
-                    className="w-full h-full object-contain px-2"
+                    className="w-full h-full object-contain"
                     loading="lazy"
                     width="600"
                     height="400"

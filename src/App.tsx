@@ -41,27 +41,29 @@ class ErrorBoundary extends React.Component<
   }
 }
 
-// Optimized loading component
-const LoadingSpinner = () => (
+// Optimized loading component - memoized
+const LoadingSpinner = React.memo(() => (
   <div className="flex justify-center items-center py-8 min-h-[200px]" role="status" aria-label="Carregando">
     <div className="w-8 h-8 border-2 border-natural-200 border-t-natural-600 rounded-full animate-spin"></div>
   </div>
-);
+));
+LoadingSpinner.displayName = 'LoadingSpinner';
 
 // Intersection Observer for better lazy loading
-const LazySection = ({ children, fallback = <div className="h-20 contain-layout"></div> }: { children: React.ReactNode, fallback?: React.ReactNode }) => (
+const LazySection = React.memo(({ children, fallback = <div className="h-20 lazy-section"></div> }: { children: React.ReactNode, fallback?: React.ReactNode }) => (
   <Suspense fallback={fallback}>
     {children}
   </Suspense>
-);
+));
+LazySection.displayName = 'LazySection';
 
-// Error fallback component
-const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error, resetErrorBoundary: () => void }) => (
+// Error fallback component - memoized
+const ErrorFallback = React.memo(({ error, resetErrorBoundary }: { error: Error, resetErrorBoundary: () => void }) => (
   <div className="min-h-screen flex items-center justify-center bg-natural-50">
     <div className="text-center p-8">
       <h2 className="text-2xl font-bold text-natural-800 mb-4">Algo deu errado</h2>
       <p className="text-natural-600 mb-4">Ocorreu um erro inesperado. Tente recarregar a página.</p>
-      <button 
+      <button
         onClick={resetErrorBoundary}
         className="bg-natural-600 text-white px-6 py-3 rounded-full hover:bg-natural-700 transition-colors"
       >
@@ -69,7 +71,8 @@ const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error, resetError
       </button>
     </div>
   </div>
-);
+));
+ErrorFallback.displayName = 'ErrorFallback';
 
 function App() {
   return (

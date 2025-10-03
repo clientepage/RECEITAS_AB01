@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { faqData } from '../utils/faqData';
 
 const FAQ: React.FC = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
 
-  const toggleItem = (id: number) => {
-    if (openItems.includes(id)) {
-      setOpenItems(openItems.filter(item => item !== id));
-    } else {
-      setOpenItems([...openItems, id]);
-    }
-  };
+  const toggleItem = useCallback((id: number) => {
+    setOpenItems(prev =>
+      prev.includes(id)
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    );
+  }, []);
 
   return (
     <section id="perguntas" className="py-16 md:py-24 bg-white">
@@ -72,13 +72,13 @@ const FAQ: React.FC = () => {
           <div className="mt-8 text-center">
             <a 
               href="#oferta" 
-              onClick={(e) => {
+              onClick={useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
                 e.preventDefault();
                 const offersSection = document.getElementById('oferta');
                 if (offersSection) {
                   offersSection.scrollIntoView({ behavior: 'smooth' });
                 }
-              }}
+              }, [])}
               className="inline-block bg-natural-600 hover:bg-natural-700 text-white font-medium px-8 py-4 rounded-full transition-colors shadow-lg hover:shadow-xl text-lg"
             >
               Quero Garantir Meu Acesso Agora →

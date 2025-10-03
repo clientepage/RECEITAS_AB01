@@ -1,32 +1,32 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Moon, Droplets, Heart, Apple, Sparkles, HeartPulse, ArrowDown } from 'lucide-react';
 import { benefitsData } from '../utils/benefitsData';
 
 const Benefits: React.FC = () => {
-  const handleScrollToOffers = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToOffers = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const offersSection = document.getElementById('oferta');
     if (offersSection) {
       offersSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const handleScrollToNext = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToNext = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const nextSection = document.getElementById('depoimentos');
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const iconMap: Record<string, React.ReactNode> = {
+  const iconMap: Record<string, React.ReactNode> = useMemo(() => ({
     Moon: <Moon size={28} className="text-natural-600" />,
     Droplets: <Droplets size={28} className="text-natural-600" />,
     Heart: <Heart size={28} className="text-natural-600" />,
     Apple: <Apple size={28} className="text-natural-600" />,
     Sparkles: <Sparkles size={28} className="text-natural-600" />,
     HeartPulse: <HeartPulse size={28} className="text-natural-600" />
-  };
+  }), []);
 
   return (
     <section id="beneficios" className="py-12 md:py-16 lg:py-24 bg-earth-50">

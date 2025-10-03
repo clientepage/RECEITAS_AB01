@@ -2,18 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDown, BookOpen, Users, Award } from 'lucide-react';
 
 const Hero: React.FC = () => {
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const subheadlineRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Set loaded state with small delay to ensure proper rendering
-    const timer = setTimeout(() => {
+    requestAnimationFrame(() => {
       setIsLoaded(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
+    });
   }, []);
 
   const handleScrollToOffers = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -36,8 +30,7 @@ const Hero: React.FC = () => {
     <section className="relative min-h-screen pt-16 pb-12 md:pt-20 md:pb-20 bg-gradient-to-b from-natural-50 to-white overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center pt-4 md:pt-8">
-          <h1 
-            ref={headlineRef}
+          <h1
             className={`font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-natural-900 mb-4 md:mb-6 leading-tight px-2 transition-opacity duration-500 ${
               isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
@@ -45,8 +38,7 @@ const Hero: React.FC = () => {
             Transforme sua saúde com <span className="text-natural-600">protocolos naturais</span> de 30 dias - <span className="text-earth-700">Recupere sua energia sem depender de medicamentos</span>
           </h1>
           
-          <p 
-            ref={subheadlineRef}
+          <p
             className={`text-lg md:text-xl lg:text-2xl text-natural-800 mb-6 md:mb-8 px-2 leading-relaxed transition-opacity duration-500 delay-100 ${
               isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
@@ -81,8 +73,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
           
-          <div 
-            ref={ctaRef} 
+          <div
             className={`space-y-4 transition-opacity duration-500 delay-200 ${
               isLoaded ? 'opacity-100' : 'opacity-0'
             }`}

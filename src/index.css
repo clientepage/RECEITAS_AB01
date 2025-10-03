@@ -71,21 +71,24 @@
   img {
     content-visibility: auto;
     contain-intrinsic-size: 200px 150px;
-    loading: lazy;
-    decoding: async;
   }
   
   /* Optimize carousel */
   .carousel-container {
-    will-change: transform;
     transform: translateZ(0);
     contain: layout style;
   }
-  
+
   .carousel-slide {
     backface-visibility: hidden;
     transform: translateZ(0);
     contain: layout;
+  }
+
+  /* Intersection observer optimization */
+  .lazy-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 500px;
   }
 }
 

@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { ArrowDown } from 'lucide-react';
 
 const Gallery: React.FC = () => {
-  const handleScrollToOffers = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToOffers = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const offersSection = document.getElementById('oferta');
     if (offersSection) {
       offersSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const handleScrollToNext = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToNext = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const nextSection = document.getElementById('beneficios');
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const ingredients = [
+  const ingredients = useMemo(() => [
     { name: "Gengibre", properties: "Anti-inflamatório", emoji: "🧄" },
     { name: "Canela", properties: "Regula açúcar", emoji: "🌿" },
     { name: "Alho", properties: "Fortalece imunidade", emoji: "🧄" },
@@ -27,7 +27,7 @@ const Gallery: React.FC = () => {
     { name: "Camomila", properties: "Calmante natural", emoji: "🌼" },
     { name: "Pressão Alta", properties: "Controle natural", emoji: "❤️" },
     { name: "Diabetes", properties: "Regula glicose", emoji: "🩺" }
-  ];
+  ], []);
 
   return (
     <section id="galeria" className="py-12 md:py-16 bg-natural-50">

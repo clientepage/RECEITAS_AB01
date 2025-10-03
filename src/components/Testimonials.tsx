@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Testimonials: React.FC = () => {
@@ -21,34 +21,35 @@ const Testimonials: React.FC = () => {
     }
   }, []);
 
-  const testimonialImages = [
+  const testimonialImages = useMemo(() => [
     {
       src: "/AnyConv.com__depoimento01-1.webp",
       alt: "Depoimento de Patricia Marques Fonseca sobre melhora no sono e dores articulares",
       name: "Patricia Marques Fonseca"
     },
     {
-      src: "/AnyConv.com__depoimento06.webp", 
+      src: "/AnyConv.com__depoimento06.webp",
       alt: "Depoimento de Gabriela Gomes sobre melhora nas dores no joelho",
       name: "Gabriela Gomes"
     }
-  ];
+  ], []);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % testimonialImages.length);
-  }, [testimonialImages.length]);
+  }, []);
 
   const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + testimonialImages.length) % testimonialImages.length);
-  }, [testimonialImages.length]);
+  }, []);
 
-  // Auto-play carousel
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
-    const interval = setInterval(nextSlide, 5000);
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % testimonialImages.length);
+    }, 5000);
     return () => clearInterval(interval);
-  }, [nextSlide, isAutoPlaying]);
+  }, [isAutoPlaying, testimonialImages.length]);
 
   const handleMouseEnter = useCallback(() => setIsAutoPlaying(false), []);
   const handleMouseLeave = useCallback(() => setIsAutoPlaying(true), []);

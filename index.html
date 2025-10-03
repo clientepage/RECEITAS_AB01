@@ -52,13 +52,14 @@
       /* Above-the-fold styles */
       header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);contain:layout style;transform:translateZ(0)}
       .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(to bottom,#f2f7f2,#ffffff);contain:layout style;transform:translateZ(0)}
-      .btn-primary{background:#538c57;color:white;padding:1.2rem 2.5rem;border-radius:9999px;text-decoration:none;display:inline-block;font-weight:600;transition:background-color 0.15s ease-out,transform 0.15s ease-out;will-change:background-color,transform;font-size:18px;touch-action:manipulation}
+      .btn-primary{background:#538c57;color:white;padding:1.2rem 2.5rem;border-radius:9999px;text-decoration:none;display:inline-block;font-weight:600;transition:background-color 0.15s ease-out,transform 0.15s ease-out;font-size:18px;touch-action:manipulation}
       .btn-primary:hover,.btn-primary:focus{background:#3d7141;transform:translate3d(0,-1px,0)}
-      img{content-visibility:auto;contain-intrinsic-size:200px;loading:lazy;decoding:async}
+      img{content-visibility:auto;contain-intrinsic-size:200px}
       .lazy-section{content-visibility:auto;contain-intrinsic-size:400px;contain:layout style}
-      
+      section{contain:layout style}
+
       /* Carousel optimizations */
-      .carousel-container{will-change:transform;transform:translateZ(0);contain:layout style}
+      .carousel-container{transform:translateZ(0);contain:layout style}
       .carousel-slide{backface-visibility:hidden;transform:translateZ(0);contain:layout}
       
       /* Mobile optimizations */
@@ -296,28 +297,37 @@
         }
       }, { passive: true, capture: false });
       
-      // Track scroll depth
+      // Track scroll depth with better throttling
       let maxScrollDepth = 0;
       let scrollTimeout;
+      let rafId;
       window.addEventListener('scroll', function() {
-        if (scrollTimeout) return;
-        scrollTimeout = setTimeout(() => {
-        try {
-          const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-          if (scrollDepth > maxScrollDepth) {
-            maxScrollDepth = scrollDepth;
-            if (window.trackEvent && scrollDepth % 25 === 0) {
-              window.trackEvent('ScrollDepth', { 
-                depth: scrollDepth,
-                timestamp: new Date().toISOString()
-              });
-            }
+        if (rafId) return;
+
+        rafId = requestAnimationFrame(() => {
+          if (scrollTimeout) {
+            rafId = null;
+            return;
           }
-        } catch (error) {
-          console.error('Error tracking scroll:', error);
-        }
-        scrollTimeout = null;
-        }, 100);
+
+          scrollTimeout = setTimeout(() => {
+            try {
+              const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+              if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                maxScrollDepth = scrollDepth;
+                if (window.trackEvent) {
+                  window.trackEvent('ScrollDepth', {
+                    depth: scrollDepth,
+                    timestamp: new Date().toISOString()
+                  });
+                }
+              }
+            } catch (error) {}
+            scrollTimeout = null;
+          }, 150);
+
+          rafId = null;
+        });
       }, { passive: true, capture: false });
       
       // Track time on page

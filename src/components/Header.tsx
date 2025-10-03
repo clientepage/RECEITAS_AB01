@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Leaf, Menu, X } from 'lucide-react';
 
 const Header: React.FC = () => {
@@ -7,12 +7,17 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     let rafId: number;
-    
+    let lastScrollY = 0;
+
     const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (Math.abs(scrollY - lastScrollY) < 5) return;
+
       if (rafId) return;
-      
+
       rafId = requestAnimationFrame(() => {
-        setIsScrolled(window.scrollY > 50);
+        setIsScrolled(scrollY > 50);
+        lastScrollY = scrollY;
         rafId = 0;
       });
     };
@@ -22,6 +27,14 @@ const Header: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
     };
+  }, []);
+
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
   }, []);
 
   return (
@@ -50,8 +63,8 @@ const Header: React.FC = () => {
         </nav>
 
         <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+          <button
+            onClick={toggleMenu} 
             className="text-natural-800 p-3 hover:bg-natural-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-natural-500 focus:ring-offset-2"
             aria-label="Menu"
             aria-expanded={isMenuOpen}
@@ -68,28 +81,28 @@ const Header: React.FC = () => {
             <a 
               href="#beneficios" 
               className="text-natural-700 py-3 border-b border-gray-100 text-lg font-medium"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
             >
               Benefícios
             </a>
             <a 
               href="#depoimentos" 
               className="text-natural-700 py-3 border-b border-gray-100 text-lg font-medium"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
             >
               Depoimentos
             </a>
             <a 
               href="#perguntas" 
               className="text-natural-700 py-3 border-b border-gray-100 text-lg font-medium"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
             >
               Dúvidas
             </a>
             <a 
               href="#oferta" 
               className="bg-natural-600 text-white py-4 rounded-full font-semibold text-center shadow-lg text-lg focus:outline-none focus:ring-2 focus:ring-natural-500 focus:ring-offset-2 mt-2"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
             >
               Quero Receber Agora
             </a>

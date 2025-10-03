@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { ShieldCheck, Sparkles, Clock, CreditCard } from 'lucide-react';
 
 const Pricing: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<'standard' | 'premium'>('premium');
 
-  const handlePurchaseClick = (option: 'standard' | 'premium') => {
+  const handlePurchaseClick = useCallback((option: 'standard' | 'premium') => {
     const url = option === 'standard'
       ? 'https://www.ggcheckout.com/checkout/v2/Ni3orCR2x8kWHSw8LJ8O'
       : 'https://www.ggcheckout.com/checkout/v2/Ni3orCR2x8kWHSw8LJ8O';
@@ -22,9 +22,9 @@ const Pricing: React.FC = () => {
     }
 
     window.open(url, '_blank');
-  };
+  }, []);
 
-  const bonusItems = [
+  const bonusItems = useMemo(() => [
     {
       title: "BÔNUS 1 – Guia Detox Natural",
       description: "Plano de 7 dias para desintoxicar seu organismo",
@@ -40,7 +40,7 @@ const Pricing: React.FC = () => {
       description: "Tire suas dúvidas diretamente conosco por 30 dias",
       value: "R$ 23,00"
     }
-  ];
+  ], []);
 
   return (
     <>

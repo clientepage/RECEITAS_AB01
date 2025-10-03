@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { BookOpen, ArrowDown } from 'lucide-react';
 
 const KnowledgeSection: React.FC = () => {
-  const handleScrollToOffers = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToOffers = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const offersSection = document.getElementById('oferta');
     if (offersSection) {
       offersSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const handleScrollToNext = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToNext = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const nextSection = document.getElementById('ciencia');
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
   return (
     <section id="conhecimento" className="py-8 md:py-16 bg-white">

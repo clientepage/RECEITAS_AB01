@@ -6,7 +6,7 @@ const Pricing: React.FC = () => {
 
   const handlePurchaseClick = useCallback((option: 'standard' | 'premium') => {
     const url = option === 'standard'
-      ? 'https://www.ggcheckout.com/checkout/v2/Ni3orCR2x8kWHSw8LJ8O'
+      ? 'https://remarketing-orcin.vercel.app/'
       : 'https://www.ggcheckout.com/checkout/v2/Ni3orCR2x8kWHSw8LJ8O';
 
     try {
